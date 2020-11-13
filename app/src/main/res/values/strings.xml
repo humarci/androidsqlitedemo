@@ -7,6 +7,9 @@
     <string name="country">City/State/Zip</string>
     <string name="save">Save contact</string>
     <string name="deleteContact">Are you sure, you want to delete it?</string>
+    <string name="deletedMsg">Deleted successfully</string>
+    <string name="deleteCancel">Cancel</string>
+    <string name="dialogTitle">Are you sure?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="Add_new">Add new</string>

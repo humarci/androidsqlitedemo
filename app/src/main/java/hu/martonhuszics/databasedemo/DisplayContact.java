@@ -1,6 +1,8 @@
 package hu.martonhuszics.databasedemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -89,9 +91,62 @@ public class DisplayContact extends Activity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.Edit_Contact:
+                Button button = (Button)findViewById(R.id.button1);
+                button.setVisibility(View.VISIBLE);
 
-        return true;
+                name.setEnabled(true);
+                name.setFocusableInTouchMode(true);
+                name.setClickable(true);
+
+                phone.setEnabled(true);
+                phone.setFocusableInTouchMode(true);
+                phone.setClickable(true);
+
+                email.setEnabled(true);
+                email.setFocusableInTouchMode(true);
+                email.setClickable(true);
+
+                street.setEnabled(true);
+                street.setFocusableInTouchMode(true);
+                street.setClickable(true);
+
+                place.setEnabled(true);
+                place.setFocusableInTouchMode(true);
+                place.setClickable(true);
+
+                return true;
+
+            case R.id.Delete_Contact:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.deleteContact)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mydb.deleteContact(id_To_Update);
+                                Toast.makeText(getApplicationContext(), getString(R.string.deletedMsg), Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // User cancel the dialog
+                                Toast.makeText(getApplicationContext(), getString(R.string.deleteCancel), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.setTitle(getString(R.string.dialogTitle));
+                alertDialog.show();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void run(View view) {
